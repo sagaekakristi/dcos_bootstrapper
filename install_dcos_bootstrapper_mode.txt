@@ -1,24 +1,27 @@
-- on bootstrapper
+- on master
 
 <login as root>
 
-echo "192.168.0.xxx" > ~/ip
+cd ~ && sudo yum install git -y && git clone https://github.com/sagaekakristi/dcos_bootstrapper.git dcos_bootstrapper && cd dcos_bootstrapper && sudo chmod 755 *.sh ip-detect
 
+echo "192.168.0.xxx" > ~/ip
 sudo ssh-keygen -t rsa
 sh sshkeys_bootstrap.sh
 cat ~/.ssh/id_rsa.pub
 <copy content>
 
-cd ~ && sudo yum install git -y && git clone https://github.com/sagaekakristi/dcos_bootstrapper.git dcos_bootstrapper && cd dcos_bootstrapper && sudo chmod 755 *.sh ip-detect && sh bootstrap.sh && reboot
-
+sh bootstrap.sh && reboot
 cd ~ && sh dcos_bootstrapper/download_dcos_installer.sh && sh dcos_bootstrapper/start_dcos_installer.sh
 
 - on agent: run bootstrapper script
 
 <login as root>
 
+cd ~ && sudo yum install git -y && git clone https://github.com/sagaekakristi/dcos_bootstrapper.git dcos_bootstrapper && cd dcos_bootstrapper && sudo chmod 755 *.sh ip-detect 
+
+echo "192.168.0.xxx" > ~/ip
 sudo ssh-keygen -t rsa
 nano id_rsa.pub
 <paste content>
 
-sudo yum install git -y && git clone https://github.com/sagaekakristi/dcos_bootstrapper.git dcos_bootstrapper && cd dcos_bootstrapper && sudo chmod 755 *.sh ip-detect && sh bootstrap.sh && sh agent_bootstrap.sh && reboot
+sh bootstrap.sh && sh agent_bootstrap.sh && reboot
