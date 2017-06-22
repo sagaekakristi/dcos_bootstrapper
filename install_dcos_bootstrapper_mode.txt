@@ -11,6 +11,7 @@ cat ~/.ssh/id_rsa.pub
 <copy content>
 
 sh bootstrap.sh && reboot
+
 cd ~ && sh dcos_bootstrapper/download_dcos_installer.sh && sh dcos_bootstrapper/start_dcos_installer.sh
 
 - on agent: run bootstrapper script
@@ -21,7 +22,6 @@ cd ~ && sudo yum install git -y && git clone https://github.com/sagaekakristi/dc
 
 echo "192.168.0.xxx" > ~/ip
 sudo ssh-keygen -t rsa
-nano id_rsa.pub
-<paste content>
+echo "<paste content>" > id_rsa.pub
 
 sh bootstrap.sh && sh agent_bootstrap.sh && reboot
